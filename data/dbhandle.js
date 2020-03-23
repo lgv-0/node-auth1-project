@@ -2,7 +2,7 @@ const DB = require("knex")(require("../knexfile").development);
 
 function GetUsers()
 {
-    return DB.select("*").from("users");
+    return DB.select(`id`, `username`).from("users");
 }
 
 function GetUserBy(filter)
