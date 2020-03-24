@@ -1,5 +1,9 @@
 const express = require("express");
 const server = express();
+const fs = require("fs");
+
+process.env.PRIVATEKEY = fs.readFileSync(require("path").join(__dirname, "/keys/rs512.key"), 'utf8');
+process.env.PUBLICKEY = fs.readFileSync(require("path").join(__dirname, "/keys/rs512.key.pub"), 'utf8');
 
 server.use(express.json());
 

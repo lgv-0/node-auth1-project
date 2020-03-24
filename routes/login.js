@@ -3,7 +3,6 @@ const router = express();
 const Crypt = require("bcryptjs");
 const DBHandle = require("../data/dbhandle");
 const jwt = require("jsonwebtoken");
-const fs = require("fs");
 
 router.post("/", (req, res)=>
 {
@@ -37,15 +36,13 @@ function generateToken(user)
         username: user.username
     }
 
-    let privateKEY  = fs.readFileSync(require("path").join(__dirname, "../keys/rs512.key"), 'utf8');
-
     const options =
     {
         algorithm: "RS512",
         expiresIn: "1h"
     }
 
-    return jwt.sign(payload, {key:privateKEY, passphrase:"secret"}, options);
+    return jwt.sign(payload, {key:process.env.PRIVATEKEY, passphrase:"secret"}, options);
 }
 
 module.exports = router;
